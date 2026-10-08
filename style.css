@@ -1,19 +1,305 @@
+/* ---------- Base ---------- */
+:root {
+  --bg: #e6e6e3;
+  --bg-name: #d3d3cf;
+  --ink: #161616;
+  --muted: #5c5c58;
+  --card: #141414;
+  --accent: #f2b544;
+
+  --font-display: 'Anton', 'Impact', sans-serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sign: 'Mrs Saint Delafield', cursive;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #0a1626;
+html {
+  scroll-behavior: smooth;
 }
 
-#scene {
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 3vw;
+}
+
+.monogram {
+  font-weight: 700;
+  font-style: italic;
+  font-size: 28px;
+  letter-spacing: -1.5px;
+  text-decoration: none;
+}
+
+.monogram sup {
+  font-size: 12px;
+  font-style: normal;
+  margin-left: 4px;
+  vertical-align: super;
+}
+
+.site-name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+.site-nav {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+}
+
+.site-nav a {
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+/* Giant faded name */
+.hero-bg-name {
+  position: absolute;
+  inset: 0 0 -2vh 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;     /* sit on the bottom edge */
+  font-family: var(--font-display);
+  font-size: clamp(90px, 17.5vw, 300px);
+  line-height: 0.86;
+  color: var(--bg-name);
+  user-select: none;
+  scale: 1 1.5;                  /* stretch taller, keep the same width */
+  transform-origin: center bottom;
+  animation: rise 1s ease-out both;
+}
+
+/* Your photo, standing in front of the name */
+.hero-photo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 170vh;
+  object-fit: contain;
+  object-position: bottom;
+  z-index: 2;
+  animation: rise-photo 1.1s 0.15s ease-out both;
+}
+
+/* Left column */
+.hero-left {
+  position: absolute;
+  left: 3vw;
+  bottom: 18vh;
+  width: 220px;
+  z-index: 3;
+}
+
+.work-card {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  padding: 10px 12px 14px;
+  background: var(--card);
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  transform: rotate(-4deg);
+  transition: transform 0.25s ease;
+  text-decoration: none;
+}
+
+.work-card:hover,
+.work-card:focus-visible {
+  transform: rotate(0deg) scale(1.04);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.terminal-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.terminal-dots span:nth-child(2) { background: #febc2e; }
+.terminal-dots span:nth-child(3) { background: #28c840; }
+
+.work-card code {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  line-height: 1.6;
+  color: #d8d8d4;
+}
+
+.label {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tagline {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* Right column */
+.hero-right {
+  position: absolute;
+  right: 5vw;
+  bottom: 15vh;
+  width: 220px;
+  z-index: 3;
+}
+
+.signature {
+  font-family: var(--font-sign);
+  font-size: 68px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.intro {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #2c2c2a;
+}
+
+.more-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
+
+.more-link:hover {
+  color: var(--muted);
+}
+
+/* Bottom-left line */
+.hero-footer {
+  position: absolute;
+  left: 3vw;
+  bottom: 4vh;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Load animation ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rise-photo {
+  from { opacity: 0; transform: translate(-50%, 60px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-name,
+  .hero-photo {
+    animation: none;
+  }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 760px) {
+  .site-nav {
+    display: none;
+  }
+
+  .hero-bg-name {
+    font-size: 31vw;
+    justify-content: flex-start;
+    padding-top: 110px;
+  }
+
+  .hero-photo {
+    height: 68vh;
+  }
+
+  .hero-left {
+    display: none;
+  }
+
+  .hero-right {
+    right: 16px;
+    bottom: auto;
+    top: 46vh;
+    width: 130px;
+  }
+
+  .signature {
+    font-size: 44px;
+  }
+
+  .intro {
+    font-size: 12px;
+  }
+
+  .hero-footer {
+    left: 16px;
+    font-size: 10px;
+  }
 }

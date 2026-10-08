@@ -3,21 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harsh Kamble — Security Engineer</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Harshvardhan Kamble — Security Engineer</title>
 
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-      }
-    }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="scene"></canvas>
+  <header class="site-header">
+    <a href="#" class="monogram">HK<sup>°</sup></a>
+    <span class="site-name">HARSHVARDHAN KAMBLE</span>
+    <nav class="site-nav">
+      <a href="#projects">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <script type="module" src="main.js"></script>
+  <main>
+        <section class="hero">
+      <h1 class="visually-hidden">Harshvardhan Kamble, Security Analyst and Engineer</h1>
+
+      <!-- Giant faded name behind the photo -->
+      <div class="hero-bg-name" aria-hidden="true">
+        <span>HARSHVARDHAN</span>
+        <span>KAMBLE</span>
+      </div>
+
+      <img class="hero-photo" src="harsh.png" alt="Portrait of Harshvardhan Kamble">
+
+      <!-- Left side: selected work card + tagline -->
+      <div class="hero-left">
+        <a href="#projects" class="work-card" aria-label="See selected work">
+          <div class="terminal-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <code>[ALERT] kerberoasting<br>&gt; triaged: T1558.003<br>&gt; fix deployed ✓</code>
+        </a>
+        <p class="label">01 / Selected work</p>
+        <p class="tagline">I find the threats.<br>Then I build the fixes.</p>
+      </div>
+
+      <!-- Right side: signature + short intro -->
+      <div class="hero-right">
+        <p class="signature">Harshvardhan</p>
+        <p class="intro">Security analyst &amp; engineer<br>SOC · Detection · Cloud security<br>Georgia State '27</p>
+        <a href="#about" class="more-link">A little more about me →</a>
+      </div>
+
+      <p class="hero-footer">Security Analyst &amp; Engineer /<br>Atlanta, GA </p>
+    </section>
+  </main>
 </body>
 </html>

@@ -28,7 +28,7 @@ scene.add(sun);
 const waterGeo = new THREE.PlaneGeometry(300, 300, 120, 120);
 waterGeo.rotateX(-Math.PI / 2); // lay it flat
 const waterMat = new THREE.MeshStandardMaterial({
-  color: '#2b7a8c',
+  color: '#1a64c8',
   flatShading: true,  // low-poly faceted look
   roughness: 0.35,
   metalness: 0.1,
@@ -565,6 +565,103 @@ dock.scale.setScalar(1.4);
 
 // ---------- Make islands (and everything on them) bigger ----------
 Object.values(islands).forEach((island) => island.scale.setScalar(1.8));
+
+// ---------- Dotted path connecting the islands ----------
+const pathOrder = [islands.about, islands.exp, islands.projects, islands.skills, islands.contact];
+const islandRadii = [9, 6, 12, 6.5, 7].map((r) => r * 1.8 * 1.3); // how far each beach reaches
+
+// Build a wavy curve: each island center, with a bend between each pair
+const pathPoints = [];
+pathOrder.forEach((island, i) => {
+  const a = island.position;
+  pathPoints.push(new THREE.Vector3(a.x, 0, a.z));
+  const next = pathOrder[i + 1];
+  if (next) {
+    const b = next.position;
+    const mid = new THREE.Vector3((a.x + b.x) / 2, 0, (a.z + b.z) / 2);
+    const dir = new THREE.Vector3(b.x - a.x, 0, b.z - a.z).normalize();
+    const side = i % 2 === 0 ? 1 : -1;            // bend left, then right, then left...
+    mid.x += -dir.z * 12 * side;
+    mid.z += dir.x * 12 * side;
+    pathPoints.push(mid);
+  }
+});
+const pathCurve = new THREE.CatmullRomCurve3(pathPoints);
+
+// Place cream-colored dashes along the curve, skipping spots on the islands
+const dashGeo = new THREE.BoxGeometry(2.4, 0.25, 0.7);
+const dashMat = new THREE.MeshStandardMaterial({
+  color: '#f4e6c8',
+  emissive: '#f4e6c8',
+  emissiveIntensity: 0.25,
+  flatShading: true,
+});
+const dashCount = Math.floor(pathCurve.getLength() / 4.5);
+
+for (let i = 0; i <= dashCount; i++) {
+  const u = i / dashCount;
+  const p = pathCurve.getPointAt(u);
+
+  const onIsland = pathOrder.some(
+    (island, k) => Math.hypot(p.x - island.position.x, p.z - island.position.z) < islandRadii[k]
+  );
+  if (onIsland) continue;
+
+  const t = pathCurve.getTangentAt(u);
+  const dash = new THREE.Mesh(dashGeo, dashMat);
+  dash.position.set(p.x, 1.3, p.z);
+  dash.rotation.y = Math.atan2(-t.z, t.x);
+  scene.add(dash);
+}
+
+// ---------- Floating labels above each island ----------
+function makeLabel(text) {
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 128;
+  const ctx = c.getContext('2d');
+
+  // Dark pill background
+  ctx.fillStyle = 'rgba(10, 22, 38, 0.85)';
+  ctx.beginPath();
+  ctx.roundRect(8, 16, 496, 96, 48);
+  ctx.fill();
+
+  // Gold outline
+  ctx.strokeStyle = '#f2b544';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  // Text
+  ctx.fillStyle = '#f4efe6';
+  ctx.font = 'bold 52px system-ui, -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 256, 66);
+
+  const texture = new THREE.CanvasTexture(c);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const sprite = new THREE.Sprite(
+    new THREE.SpriteMaterial({ map: texture, depthTest: false, fog: false })
+  );
+  sprite.scale.set(24, 6, 1);
+  sprite.renderOrder = 10; // draw on top of everything
+  return sprite;
+}
+
+const labelInfo = [
+  { island: islands.about,    text: 'About Me',      height: 26 },
+  { island: islands.exp,      text: 'Experience',    height: 33 },
+  { island: islands.projects, text: 'Projects',      height: 32 },
+  { island: islands.skills,   text: 'Skills',        height: 31 },
+  { island: islands.contact,  text: "Let's Connect", height: 14 },
+];
+
+labelInfo.forEach(({ island, text, height }) => {
+  const label = makeLabel(text);
+  label.position.set(island.position.x, height, island.position.z);
+  scene.add(label);
+});
 
 // ---------- Camera + view for the spread-out map ----------
 camera.position.set(0, 118, 122);              // start with the whole map in view
