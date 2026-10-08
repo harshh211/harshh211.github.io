@@ -34,13 +34,14 @@
 
       <!-- Left side: selected work card + tagline -->
       <div class="hero-left">
-        <a href="#projects" class="work-card" aria-label="See selected work">
+                <a href="#projects" class="work-card" aria-label="See selected work">
           <div class="terminal-dots">
             <span></span><span></span><span></span>
           </div>
-          <code>[ALERT] kerberoasting<br>&gt; triaged: T1558.003<br>&gt; fix deployed ✓</code>
+          <div class="term-lines" id="term-lines" aria-live="off"></div>
         </a>
-        <p class="label">01 / Selected work</p>
+        <p class="label" id="case-label">01 / Selected work</p>
+        <script src="script.js" defer></script>
         <p class="tagline">I find the threats.<br>Then I build the fixes.</p>
       </div>
 

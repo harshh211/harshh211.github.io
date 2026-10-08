@@ -303,3 +303,56 @@ a {
     font-size: 10px;
   }
 }
+/* ---------- Animated case card ---------- */
+.hero-left {
+  width: 270px;
+}
+
+.work-card {
+  width: 250px;
+}
+
+.term-lines {
+  min-height: 66px;            /* room for 3 lines so the card doesn't jump */
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.term-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #d8d8d4;
+  white-space: nowrap;
+}
+
+/* Status tags: red → amber → green */
+.tag {
+  flex: none;
+  width: 48px;
+  padding: 2px 0;
+  border-radius: 3px;
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.tag-alert  { color: #ff6b63; background: rgba(255, 95, 87, 0.15); }
+.tag-triage { color: #febc2e; background: rgba(254, 188, 46, 0.15); }
+.tag-fixed  { color: #3ddc5a; background: rgba(40, 200, 64, 0.15); }
+
+/* Blinking cursor while a line is typing */
+.term-line.typing .txt::after {
+  content: '▋';
+  margin-left: 1px;
+  color: #d8d8d4;
+  animation: blink 0.8s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
