@@ -356,3 +356,490 @@ a {
 @keyframes blink {
   50% { opacity: 0; }
 }
+/* ---------- About ---------- */
+.about {
+  padding: 18vh 3vw 16vh;
+  border-top: 1px solid rgba(22, 22, 22, 0.12);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 8vw;
+  align-items: start;
+}
+
+.about-statement {
+  font-size: clamp(34px, 4.4vw, 68px);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.about-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 60ch;
+  padding-top: 8px;
+}
+
+.about-body p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: #2c2c2a;
+}
+
+/* Quick facts list */
+.facts {
+  margin-top: 24px;
+  border-top: 1px solid rgba(22, 22, 22, 0.15);
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(22, 22, 22, 0.15);
+}
+
+.facts dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 3px;
+}
+
+.facts dd {
+  font-size: 15px;
+}
+
+/* Phones: stack into one column */
+@media (max-width: 760px) {
+  .about {
+    padding: 12vh 16px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .facts div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+/* ---------- Intro loader ---------- */
+.loading {
+  overflow: hidden;              /* no scrolling while the loader plays */
+}
+
+/* Hold the hero's rise-in animation until the loader finishes */
+.loading .hero-bg-name,
+.loading .hero-photo {
+  animation-play-state: paused;
+}
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg);
+  transition: opacity 0.6s ease;
+}
+
+.loader.done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Huge scrolling roles behind the pill */
+.loader-marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+}
+
+.loader-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 16s linear infinite;
+}
+
+.loader-track span {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 10vw, 150px);
+  line-height: 1;
+  color: var(--ink);
+  white-space: nowrap;
+  padding-right: 0.3em;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* The black pill */
+.loader-pill {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  width: 300px;
+  height: 92px;
+  padding: 0 36px;
+  background: #0b0b0b;
+  color: #f4efe6;
+  border-radius: 999px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    inset 0 -3px 0 rgba(242, 181, 68, 0.6);   /* thin gold glow on the bottom edge */
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition:
+    width 0.6s cubic-bezier(0.7, 0, 0.2, 1),
+    height 0.6s cubic-bezier(0.7, 0, 0.2, 1),
+    border-radius 0.6s ease;
+}
+
+.loader-pct {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  color: #9a9a96;
+  transition: opacity 0.3s ease;
+}
+
+.loader-cursor {
+  width: 10px;
+  height: 20px;
+  background: #f4efe6;
+  animation: blink 0.8s steps(1) infinite;
+}
+
+/* Stage 2: "ACCESS GRANTED" — hide the percent, center the text */
+.loader.granted .loader-pill {
+  justify-content: center;
+}
+
+.loader.granted .loader-pct {
+  display: none;
+}
+
+/* Stage 3: pill stretches wide */
+.loader.expand .loader-pill {
+  width: min(80vw, 1100px);
+  height: 240px;
+}
+
+/* Stage 4: pill fills the whole screen */
+.loader.fill .loader-pill {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+}
+
+.loader.fill .loader-word {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 760px) {
+  .loader-pill {
+    width: 240px;
+    height: 76px;
+    padding: 0 26px;
+    font-size: 15px;
+  }
+}
+/* ---------- Loader: match reference look ---------- */
+
+/* Wide, bold font instead of the tall narrow one */
+.loader-track span {
+  font-family: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(56px, 7vw, 112px);
+  letter-spacing: -0.02em;
+  padding-right: 0.4em;
+}
+
+/* Black pill with a glowing teal edge that fades out */
+.loader-pill {
+  width: 400px;
+  height: 120px;
+  padding: 0 52px;
+  font-size: 22px;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(#050505, #050505) padding-box,
+    linear-gradient(100deg, #5fd4c4 0%, rgba(95, 212, 196, 0.15) 45%, transparent 70%) border-box;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(95, 212, 196, 0.25);
+}
+
+.loader-pct {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  color: #8a8a86;
+}
+
+.loader-cursor {
+  width: 14px;
+  height: 26px;
+}
+
+/* Show the HK logo and nav on top of the loader, like the reference */
+.loading .site-header {
+  z-index: 101;
+}
+
+@media (max-width: 760px) {
+  .loader-pill {
+    width: 280px;
+    height: 86px;
+    padding: 0 32px;
+    font-size: 16px;
+  }
+}
+.loading .site-name,
+.loading .site-nav {
+  visibility: hidden;
+}
+
+/* ---------- Resume button + dropdown ---------- */
+.resume-menu {
+  position: relative;
+  display: inline-block;
+  margin-top: 22px;
+}
+
+/* The button */
+.resume-btn {
+  list-style: none;              /* hide the ▶ triangle */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 22px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.resume-btn::-webkit-details-marker {
+  display: none;                 /* hide the ▶ triangle in Safari */
+}
+
+.resume-btn:hover,
+.resume-menu[open] .resume-btn {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.resume-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* The dropdown card */
+.resume-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+  animation: menu-in 0.18s ease-out;
+}
+
+.resume-options a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: #e8e8e4;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.resume-options a::after {
+  content: '↗';
+  color: #8a8a86;
+}
+
+.resume-options a:hover,
+.resume-options a:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* ---------- About me (dark section) ---------- */
+.about-me {
+  --navy: #0a111c;
+  --teal: #5fd4c4;
+  background:
+    radial-gradient(60% 50% at 85% 20%, rgba(95, 212, 196, 0.10), transparent 70%),
+    var(--navy);
+  color: #e8ece9;
+  padding: 18vh 3vw;
+}
+
+.about-me-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 8vw;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Left side stays put while the right side scrolls */
+.about-me-left {
+  position: sticky;
+  top: 18vh;
+  align-self: start;
+}
+
+.about-me-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 28px;
+}
+
+.about-me-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(56px, 7vw, 120px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.about-me-title span {
+  color: var(--teal);
+}
+
+/* Right side */
+.about-me-right {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  padding-top: 52px;
+}
+
+.about-me-text {
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  max-width: 34ch;
+}
+
+/* Each word starts faded + blurry, then sharpens (the script adds .on) */
+.about-me-text .w {
+  opacity: 0.15;
+  filter: blur(4px);
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.about-me-text .w.on {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Quick facts */
+.about-me-facts {
+  border-top: 1px solid rgba(232, 236, 233, 0.15);
+}
+
+.about-me-facts div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(232, 236, 233, 0.15);
+}
+
+.about-me-facts dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8b958f;
+  padding-top: 3px;
+}
+
+.about-me-facts dd {
+  font-size: 15px;
+}
+
+/* Phones: stack into one column, no sticky */
+@media (max-width: 760px) {
+  .about-me {
+    padding: 12vh 16px;
+  }
+
+  .about-me-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-me-left {
+    position: static;
+  }
+
+  .about-me-right {
+    padding-top: 0;
+    gap: 40px;
+  }
+
+  .about-me-facts div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

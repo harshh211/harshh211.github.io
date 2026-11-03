@@ -89,3 +89,107 @@ async function run() {
 }
 
 if (linesEl && labelEl) run();
+
+// ---------- Intro loader ----------
+(function () {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+
+  const num = document.getElementById('loader-num');
+  const word = document.getElementById('loader-word');
+
+  // Removes the loader and starts the hero animation
+  function finish() {
+    document.body.classList.remove('loading');
+    loader.remove();
+  }
+
+  // Only play once per visit (and skip for people who prefer less motion)
+  let seen = false;
+  try {
+    seen = sessionStorage.getItem('introSeen') === '1';
+  } catch (e) {}
+
+  if (seen || reduceMotion) {
+    finish();
+    return;
+  }
+
+  async function intro() {
+    // 1. Count 0% → 100% in random jumps, like a real loader
+    let p = 0;
+    await sleep(1500);
+    while (p < 100) {
+      p = Math.min(100, p + Math.ceil(Math.random() * 15));
+      num.textContent = p;
+      await sleep(80 + Math.random() * 110);
+    }
+    await sleep(300);
+
+    // 2. Switch to ACCESS GRANTED
+    loader.classList.add('granted');
+    word.textContent = 'WELCOME';
+    await sleep(700);
+
+    // 3. Stretch the pill wide
+    loader.classList.add('expand');
+    await sleep(650);
+
+    // 4. Fill the whole screen
+    loader.classList.add('fill');
+    await sleep(600);
+
+    // 5. Fade out and reveal the site
+    document.body.classList.remove('loading');
+    loader.classList.add('done');
+    try {
+      sessionStorage.setItem('introSeen', '1');
+    } catch (e) {}
+    await sleep(700);
+    loader.remove();
+  }
+
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname);
+  window.scrollTo(0, 0);
+
+  intro();
+})();
+// ---------- About: words sharpen as you scroll ----------
+(function () {
+  const textEl = document.getElementById('about-text');
+  if (!textEl) return;
+
+  // Wrap every word in its own <span class="w">
+  const words = textEl.textContent.trim().split(/\s+/);
+  textEl.innerHTML = words.map((word) => `<span class="w">${word}</span>`).join(' ');
+  const spans = Array.from(textEl.querySelectorAll('.w'));
+
+  // People who prefer less motion just see the full text
+  if (reduceMotion) {
+    spans.forEach((s) => s.classList.add('on'));
+    return;
+  }
+
+  // A word lights up once it passes 75% of the way up the screen
+  // (and fades back if you scroll up again)
+  function update() {
+    const line = window.innerHeight * 0.75;
+    spans.forEach((s) => {
+      s.classList.toggle('on', s.getBoundingClientRect().top < line);
+    });
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      update();
+      ticking = false;
+    });
+  }, { passive: true });
+
+  window.addEventListener('resize', update);
+  update();
+})();

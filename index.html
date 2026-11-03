@@ -10,18 +10,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="loading">
+
+  <!-- ---------- Intro loader ---------- -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-marquee">
+      <div class="loader-track">
+        <span>SECURITY ANALYST • SECURITY ENGINEER • </span>
+        <span>SECURITY ANALYST • SECURITY ENGINEER • </span>
+        <span>SECURITY ANALYST • SECURITY ENGINEER • </span>
+        <span>SECURITY ANALYST • SECURITY ENGINEER • </span>
+      </div>
+    </div>
+    <div class="loader-pill" id="loader-pill">
+      <span class="loader-word" id="loader-word">LOADING</span>
+      <span class="loader-pct"><span id="loader-num">0</span>%<span class="loader-cursor"></span></span>
+    </div>
+  </div>
+
+  <!-- ---------- Header ---------- -->
   <header class="site-header">
     <a href="#" class="monogram">HK<sup>°</sup></a>
-    <span class="site-name">HARSHVARDHAN KAMBLE</span>
+    <a href="mailto:harshvardhan.kamble@outlook.com" class="site-name" style="text-decoration: none;">harshvardhan.kamble@outlook.com</a>
     <nav class="site-nav">
+      <a href="#about">About</a>
       <a href="#projects">Work</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main>
-        <section class="hero">
+    <!-- ---------- Hero ---------- -->
+    <section class="hero">
       <h1 class="visually-hidden">Harshvardhan Kamble, Security Analyst and Engineer</h1>
 
       <!-- Giant faded name behind the photo -->
@@ -32,16 +52,15 @@
 
       <img class="hero-photo" src="harsh.png" alt="Portrait of Harshvardhan Kamble">
 
-      <!-- Left side: selected work card + tagline -->
+      <!-- Left side: animated case card + tagline -->
       <div class="hero-left">
-                <a href="#projects" class="work-card" aria-label="See selected work">
+        <a href="#projects" class="work-card" aria-label="See selected work">
           <div class="terminal-dots">
             <span></span><span></span><span></span>
           </div>
           <div class="term-lines" id="term-lines" aria-live="off"></div>
         </a>
         <p class="label" id="case-label">01 / Selected work</p>
-        <script src="script.js" defer></script>
         <p class="tagline">I find the threats.<br>Then I build the fixes.</p>
       </div>
 
@@ -49,11 +68,64 @@
       <div class="hero-right">
         <p class="signature">Harshvardhan</p>
         <p class="intro">Security analyst &amp; engineer<br>SOC · Detection · Cloud security<br>Georgia State '27</p>
-        <a href="#about" class="more-link">A little more about me →</a>
+
+        <details class="resume-menu">
+          <summary class="resume-btn">Resume ↓</summary>
+                    <div class="resume-options">
+            <a href="https://drive.google.com/file/d/15aGH3PGHB4_jQkebGg7uEZaupMtN2iIS/view?usp=sharing" target="_blank" rel="noopener">Security Analyst</a>
+            <a href="https://drive.google.com/file/d/1caJjezlvki3sUbWROymhpPGqnNfMhkcR/view?usp=sharing" target="_blank" rel="noopener">Security Engineer</a>
+          </div>
+        </details>
       </div>
 
-      <p class="hero-footer">Security Analyst &amp; Engineer /<br>Atlanta, GA </p>
+      <p class="hero-footer">Security Analyst &amp; Engineer /<br>Atlanta, GA</p>
+    </section>
+
+        <!-- ---------- About ---------- -->
+    <section class="about-me" id="about">
+      <div class="about-me-inner">
+
+        <!-- Left: label + big statement (stays in place while scrolling) -->
+        <div class="about-me-left">
+          <p class="about-me-label">About me</p>
+          <h2 class="about-me-title">I break things<br>so they <span>don't</span><br>break.</h2>
+        </div>
+
+        <!-- Right: paragraph that sharpens as you scroll + quick facts -->
+        <div class="about-me-right">
+          <p class="about-me-text" id="about-text">
+            I'm a Computer Science student at Georgia State University who learns security by
+            playing both sides. In my home labs I launch real attacks like Kerberoasting and
+            brute-force logins, catch them in Splunk, map them to MITRE ATT&amp;CK, then harden
+            whatever let them through. I'm looking for security analyst and security engineer
+            roles where I can do the same on real systems: investigating alerts, writing
+            detections, and fixing the root cause.
+          </p>
+
+          <dl class="about-me-facts">
+            <div>
+              <dt>Based in</dt>
+              <dd>Atlanta, GA</dd>
+            </div>
+            <div>
+              <dt>Studying</dt>
+              <dd>B.S. Computer Science, Georgia State · May 2027</dd>
+            </div>
+            <div>
+              <dt>Certs</dt>
+              <dd>CompTIA Security+ · TryHackMe SOC Level 1</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>SOC &amp; detection · Cloud security · Active Directory</dd>
+            </div>
+          </dl>
+        </div>
+
+      </div>
     </section>
   </main>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
