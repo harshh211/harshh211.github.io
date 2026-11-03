@@ -843,3 +843,201 @@ a {
     gap: 4px;
   }
 }
+
+/* ---------- What I Do ---------- */
+.wid {
+  --navy: #0a111c;
+  --teal: #5fd4c4;
+  --line: rgba(232, 236, 233, 0.35);
+  background:
+    radial-gradient(50% 50% at 15% 60%, rgba(95, 212, 196, 0.08), transparent 70%),
+    var(--navy);
+  color: #e8ece9;
+  padding: 14vh 3vw 18vh;
+}
+
+.wid-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 8vw;
+  align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Big heading on the left, stays in place while scrolling */
+.wid-title {
+  position: sticky;
+  top: 18vh;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(72px, 9vw, 150px);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.wid-title span {
+  color: var(--teal);
+}
+
+/* Outer frame: dashed border + corner brackets */
+.wid-boxes {
+  --c: #e8ece9;
+  position: relative;
+  border: 1px dashed var(--line);
+  padding: 6px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 16px 2px no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / 2px 16px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 16px 2px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 2px 16px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 16px 2px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 2px 16px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 16px 2px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 2px 16px no-repeat;
+}
+
+/* Each box */
+.wid-box {
+  padding: 32px 34px;
+}
+
+.wid-box + .wid-box {
+  border-top: 1px dashed var(--line);
+}
+
+.wid-box summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.wid-box summary::-webkit-details-marker {
+  display: none;
+}
+
+.wid-box summary:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 6px;
+}
+
+.wid-box-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wid-box-title {
+  font-size: clamp(28px, 2.6vw, 40px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.wid-box-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7f8a85;
+}
+
+/* Small square toggle with a chevron */
+.wid-toggle {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.wid-toggle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid #e8ece9;
+  border-bottom: 1.5px solid #e8ece9;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform 0.25s ease;
+}
+
+.wid-box[open] .wid-toggle::after {
+  top: 55%;
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.wid-box summary:hover .wid-toggle {
+  border-color: var(--teal);
+}
+
+/* Content that shows when open */
+.wid-box-text {
+  margin-top: 22px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #b9c2bd;
+  max-width: 52ch;
+}
+
+.wid-tags-label {
+  margin-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7f8a85;
+}
+
+.wid-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.wid-tags li {
+  padding: 6px 12px;
+  border: 1px solid rgba(232, 236, 233, 0.22);
+  border-radius: 999px;
+  font-size: 13px;
+  color: #d6ddd9;
+}
+
+.wid-box[open] .wid-box-text,
+.wid-box[open] .wid-tags-label,
+.wid-box[open] .wid-tags {
+  animation: wid-in 0.35s ease-out;
+}
+
+@keyframes wid-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Phones */
+@media (max-width: 760px) {
+  .wid {
+    padding: 10vh 16px 14vh;
+  }
+
+  .wid-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .wid-title {
+    position: static;
+  }
+
+  .wid-box {
+    padding: 24px 20px;
+  }
+}
