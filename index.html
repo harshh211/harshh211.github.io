@@ -177,6 +177,180 @@
         </div>
       </div>
     </section>
+      <!-- ---------- Selected Work ---------- -->
+    <section class="pj" id="projects">
+
+      <!-- Shared arrowheads + dot grid for the cover art -->
+      <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+        <defs>
+          <pattern id="pj-dots" width="16" height="16" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" fill="#1c2a40"></circle>
+          </pattern>
+          <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#ff5f57"></path>
+          </marker>
+          <marker id="ar-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5fd4c4"></path>
+          </marker>
+        </defs>
+      </svg>
+
+      <div class="pj-head">
+        <p class="pj-label">A few things I've built</p>
+        <h2 class="pj-title">Selected work</h2>
+      </div>
+
+      <div class="pj-row">
+
+        <!-- 01 · AD Attack & Defense Lab -->
+        <a class="pj-card" href="https://github.com/harshh211/AD-Attack-Defense-Lab" target="_blank" rel="noopener">
+          <svg class="pj-art" viewBox="0 0 320 220" role="img" aria-label="Attack path from Kali to the domain controller to SYSTEM, then hardened">
+            <rect width="320" height="220" fill="#0d1726"></rect>
+            <rect width="320" height="220" fill="url(#pj-dots)"></rect>
+            <text x="20" y="32" class="t-k">ATTACK PATH · lab.local</text>
+            <text x="100" y="80" class="t-s" text-anchor="middle">rpcclient</text>
+            <text x="218" y="80" class="t-s" text-anchor="middle">pass-the-hash</text>
+            <path class="pj-flow" d="M72 108 H134" stroke="#ff5f57" marker-end="url(#ar-red)"></path>
+            <path class="pj-flow" d="M186 108 H246" stroke="#ff5f57" marker-end="url(#ar-red)"></path>
+            <circle cx="50" cy="108" r="20" fill="#2a1416" stroke="#ff5f57" stroke-width="2"></circle>
+            <circle cx="160" cy="108" r="24" fill="#121e30" stroke="#e8ece9" stroke-width="2"></circle>
+            <circle cx="268" cy="108" r="20" fill="#ff5f57" class="pj-pulse"></circle>
+            <text x="50" y="148" class="t-m" text-anchor="middle">KALI</text>
+            <text x="160" y="152" class="t-m" text-anchor="middle">DC01</text>
+            <text x="268" y="148" class="t-m" text-anchor="middle">SYSTEM</text>
+            <rect x="20" y="172" width="280" height="30" rx="15" fill="rgba(95,212,196,0.12)" stroke="#5fd4c4"></rect>
+            <text x="160" y="191" class="t-ok" text-anchor="middle">✓ HARDENED · LDAP signing · Protected Users</text>
+          </svg>
+          <div class="pj-meta">
+            <span class="pj-num">01</span>
+            <h3>AD Attack &amp; Defense Lab</h3>
+            <p>Azure · Active Directory · Impacket</p>
+          </div>
+        </a>
+
+        <!-- 02 · Home SOC Lab -->
+        <a class="pj-card" href="https://github.com/harshh211/Home-SOC-Lab" target="_blank" rel="noopener">
+          <svg class="pj-art" viewBox="0 0 320 220" role="img" aria-label="Failed logon chart spiking past the alert threshold">
+            <rect width="320" height="220" fill="#0d1726"></rect>
+            <rect width="320" height="220" fill="url(#pj-dots)"></rect>
+            <text x="20" y="32" class="t-k">EventCode 4625 · failed logons</text>
+            <rect x="214" y="44" width="88" height="22" rx="11" fill="rgba(255,95,87,0.15)" stroke="#ff5f57"></rect>
+            <text x="258" y="59" class="t-bad" text-anchor="middle">T1110 ALERT</text>
+            <line x1="20" y1="120" x2="300" y2="120" stroke="#febc2e" stroke-dasharray="4 4"></line>
+            <text x="20" y="114" class="t-warn">threshold ≥ 5 / 5m</text>
+            <g class="pj-bars">
+              <rect x="24" y="162" width="10" height="8" fill="#2a3a52"></rect>
+              <rect x="41" y="158" width="10" height="12" fill="#2a3a52"></rect>
+              <rect x="58" y="164" width="10" height="6" fill="#2a3a52"></rect>
+              <rect x="75" y="160" width="10" height="10" fill="#2a3a52"></rect>
+              <rect x="92" y="161" width="10" height="9" fill="#2a3a52"></rect>
+              <rect x="109" y="163" width="10" height="7" fill="#2a3a52"></rect>
+              <rect x="126" y="159" width="10" height="11" fill="#2a3a52"></rect>
+              <rect x="143" y="162" width="10" height="8" fill="#2a3a52"></rect>
+              <rect class="hot" x="160" y="110" width="10" height="60" fill="#ff5f57"></rect>
+              <rect class="hot" x="177" y="75" width="10" height="95" fill="#ff5f57"></rect>
+              <rect class="hot" x="194" y="70" width="10" height="100" fill="#ff5f57"></rect>
+              <rect class="hot" x="211" y="82" width="10" height="88" fill="#ff5f57"></rect>
+              <rect x="228" y="160" width="10" height="10" fill="#2a3a52"></rect>
+              <rect x="245" y="163" width="10" height="7" fill="#2a3a52"></rect>
+              <rect x="262" y="161" width="10" height="9" fill="#2a3a52"></rect>
+              <rect x="279" y="164" width="10" height="6" fill="#2a3a52"></rect>
+            </g>
+            <line x1="20" y1="170" x2="300" y2="170" stroke="#2a3a52"></line>
+            <text x="20" y="198" class="t-s">brute force detected · src 192.168.64.3</text>
+          </svg>
+          <div class="pj-meta">
+            <span class="pj-num">02</span>
+            <h3>Home SOC Lab</h3>
+            <p>Splunk · Sysmon · MITRE ATT&amp;CK</p>
+          </div>
+        </a>
+
+        <!-- 03 · NHI Escalation Scanner -->
+        <a class="pj-card" href="https://github.com/harshh211/nhi-escalation-scanner" target="_blank" rel="noopener">
+          <svg class="pj-art" viewBox="0 0 320 220" role="img" aria-label="Graph of IAM roles with escalation paths to admin">
+            <rect width="320" height="220" fill="#0d1726"></rect>
+            <rect width="320" height="220" fill="url(#pj-dots)"></rect>
+            <text x="20" y="32" class="t-k">IAM ESCALATION PATHS</text>
+            <path class="pj-flow" d="M76 84 Q160 44 228 54" stroke="#ff5f57" fill="none" marker-end="url(#ar-red)"></path>
+            <path class="pj-flow" d="M124 134 Q190 104 234 72" stroke="#ff5f57" fill="none" marker-end="url(#ar-red)"></path>
+            <path class="pj-flow" d="M218 136 L242 78" stroke="#ff5f57" fill="none" marker-end="url(#ar-red)"></path>
+            <path class="pj-flow" d="M198 150 L128 143" stroke="#ff5f57" fill="none" marker-end="url(#ar-red)"></path>
+            <path class="pj-flow" d="M54 178 L96 152" stroke="#ff5f57" fill="none" marker-end="url(#ar-red)"></path>
+            <circle cx="62" cy="90" r="12" fill="#ff5f57"></circle>
+            <circle cx="110" cy="142" r="12" fill="#ff5f57"></circle>
+            <circle cx="212" cy="152" r="12" fill="#ff5f57"></circle>
+            <circle cx="42" cy="186" r="12" fill="#ff5f57"></circle>
+            <circle cx="282" cy="180" r="12" fill="#3ddc5a"></circle>
+            <circle cx="250" cy="58" r="22" fill="#f2b544" class="pj-pulse"></circle>
+            <text x="250" y="62" class="t-admin" text-anchor="middle">ADMIN</text>
+            <text x="282" y="206" class="t-s" text-anchor="middle">safe</text>
+          </svg>
+          <div class="pj-meta">
+            <span class="pj-num">03</span>
+            <h3>NHI Escalation Scanner</h3>
+            <p>Python · AWS IAM · Graph analysis</p>
+          </div>
+        </a>
+
+        <!-- 04 · DevSecOps Terraform Pipeline -->
+        <a class="pj-card" href="https://github.com/harshh211/terraform-security-pipeline" target="_blank" rel="noopener">
+          <svg class="pj-art" viewBox="0 0 320 220" role="img" aria-label="CI pipeline where Checkov blocks a deploy">
+            <rect width="320" height="220" fill="#0d1726"></rect>
+            <rect width="320" height="220" fill="url(#pj-dots)"></rect>
+            <text x="20" y="32" class="t-k">CI · security-scan.yml</text>
+            <line x1="100" y1="100" x2="120" y2="100" stroke="#5fd4c4" stroke-width="2"></line>
+            <line class="pj-flow" x1="200" y1="100" x2="220" y2="100" stroke="#ff5f57" stroke-width="2"></line>
+            <rect x="20" y="78" width="80" height="44" rx="10" fill="#121e30" stroke="#5fd4c4"></rect>
+            <rect x="120" y="78" width="80" height="44" rx="10" fill="#121e30" stroke="#febc2e"></rect>
+            <rect x="220" y="78" width="80" height="44" rx="10" fill="#2a1416" stroke="#ff5f57" stroke-dasharray="4 3"></rect>
+            <text x="60" y="104" class="t-m" text-anchor="middle">commit</text>
+            <text x="160" y="104" class="t-m" text-anchor="middle">checkov</text>
+            <text x="260" y="104" class="t-m" text-anchor="middle">deploy</text>
+            <circle cx="98" cy="78" r="9" fill="#5fd4c4"></circle>
+            <text x="98" y="82" class="t-icon" text-anchor="middle">✓</text>
+            <circle cx="198" cy="78" r="9" fill="#febc2e"></circle>
+            <text x="198" y="82" class="t-icon" text-anchor="middle">!</text>
+            <circle cx="298" cy="78" r="9" fill="#ff5f57" class="pj-pulse"></circle>
+            <text x="298" y="82" class="t-icon" text-anchor="middle">✕</text>
+            <text x="20" y="166" class="t-bad">✕ CKV_AWS_20 · S3 bucket is public</text>
+            <text x="20" y="188" class="t-s">merge blocked until fixed</text>
+          </svg>
+          <div class="pj-meta">
+            <span class="pj-num">04</span>
+            <h3>Terraform Security Pipeline</h3>
+            <p>Terraform · Checkov · GitHub Actions</p>
+          </div>
+        </a>
+
+        <!-- 05 · vulnscan -->
+        <a class="pj-card" href="https://github.com/harshh211/vulnscan" target="_blank" rel="noopener">
+          <svg class="pj-art" viewBox="0 0 320 220" role="img" aria-label="Terminal showing open ports and CVEs found">
+            <rect width="320" height="220" fill="#0d1726"></rect>
+            <rect x="16" y="16" width="288" height="188" rx="10" fill="#080d16" stroke="#22314a"></rect>
+            <circle cx="32" cy="32" r="4" fill="#ff5f57"></circle>
+            <circle cx="46" cy="32" r="4" fill="#febc2e"></circle>
+            <circle cx="60" cy="32" r="4" fill="#28c840"></circle>
+            <text x="30" y="64" class="t-term"><tspan fill="#5fd4c4">$</tspan> vulnscan scanme.nmap.org</text>
+            <text x="30" y="90" class="t-term"><tspan fill="#3ddc5a">[+]</tspan> 22/tcp  OpenSSH 6.6.1</text>
+            <text x="30" y="112" class="t-term"><tspan fill="#3ddc5a">[+]</tspan> 80/tcp  Apache 2.4.7</text>
+            <rect x="238" y="79" width="48" height="16" rx="8" fill="rgba(255,95,87,0.18)"></rect>
+            <text x="262" y="91" class="t-bad" text-anchor="middle">HIGH</text>
+            <rect x="238" y="101" width="48" height="16" rx="8" fill="rgba(255,95,87,0.18)"></rect>
+            <text x="262" y="113" class="t-bad" text-anchor="middle">HIGH</text>
+            <text x="30" y="138" class="t-term"><tspan fill="#5fa8ff">[*]</tspan> NVD lookup · 4 CVEs</text>
+            <text x="30" y="166" class="t-warn">CVE-2021-44224 · CVSS 8.2</text>
+            <rect x="30" y="180" width="8" height="12" fill="#e8ece9" class="pj-cursor"></rect>
+          </svg>
+          <div class="pj-meta">
+            <span class="pj-num">05</span>
+            <h3>vulnscan</h3>
+            <p>Python · Sockets · NVD API</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
   </main>
 
   <script src="script.js" defer></script>
