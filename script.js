@@ -1,6 +1,6 @@
-// ---------- Animated case card ----------
-// Each case = one project, told as alert → triage → fix.
-// Edit the text so it matches what you actually did in each lab.
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const cases = [
   {
     name: 'AD Attack Lab',
@@ -36,61 +36,59 @@ const cases = [
   },
 ];
 
-const TAGS = { alert: 'ALERT', triage: 'TRIAGE', fixed: 'FIXED' };
-const linesEl = document.getElementById('term-lines');
-const labelEl = document.getElementById('case-label');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+(function () {
+  const TAGS = { alert: 'ALERT', triage: 'TRIAGE', fixed: 'FIXED' };
+  const linesEl = document.getElementById('term-lines');
+  const labelEl = document.getElementById('case-label');
+  if (!linesEl || !labelEl) return;
 
-// Types one line: colored tag first, then the text letter by letter
-async function typeLine(type, text) {
-  const line = document.createElement('div');
-  line.className = 'term-line';
+  async function typeLine(type, text) {
+    const line = document.createElement('div');
+    line.className = 'term-line';
 
-  const tag = document.createElement('span');
-  tag.className = `tag tag-${type}`;
-  tag.textContent = TAGS[type];
+    const tag = document.createElement('span');
+    tag.className = `tag tag-${type}`;
+    tag.textContent = TAGS[type];
 
-  const txt = document.createElement('span');
-  txt.className = 'txt';
+    const txt = document.createElement('span');
+    txt.className = 'txt';
 
-  line.append(tag, txt);
-  linesEl.append(line);
+    line.append(tag, txt);
+    linesEl.append(line);
 
-  if (reduceMotion) {
-    txt.textContent = text;
-    return;
-  }
-
-  line.classList.add('typing');
-  for (const ch of text) {
-    txt.textContent += ch;
-    await sleep(30);
-  }
-  line.classList.remove('typing');
-}
-
-// Loops through every case forever
-async function run() {
-  let i = 0;
-  while (true) {
-    const c = cases[i];
-    labelEl.textContent = `0${i + 1} / ${c.name}`;
-    linesEl.innerHTML = '';
-
-    for (const [type, text] of c.lines) {
-      await typeLine(type, text);
-      await sleep(400);
+    if (reduceMotion) {
+      txt.textContent = text;
+      return;
     }
 
-    await sleep(2800); // pause so people can read it
-    i = (i + 1) % cases.length;
+    line.classList.add('typing');
+    for (const ch of text) {
+      txt.textContent += ch;
+      await sleep(30);
+    }
+    line.classList.remove('typing');
   }
-}
 
-if (linesEl && labelEl) run();
+  async function run() {
+    let i = 0;
+    while (true) {
+      const c = cases[i];
+      labelEl.textContent = `0${i + 1} / ${c.name}`;
+      linesEl.innerHTML = '';
 
-// ---------- Intro loader ----------
+      for (const [type, text] of c.lines) {
+        await typeLine(type, text);
+        await sleep(400);
+      }
+
+      await sleep(2800);
+      i = (i + 1) % cases.length;
+    }
+  }
+
+  run();
+})();
+
 (function () {
   const loader = document.getElementById('loader');
   if (!loader) return;
@@ -98,13 +96,11 @@ if (linesEl && labelEl) run();
   const num = document.getElementById('loader-num');
   const word = document.getElementById('loader-word');
 
-  // Removes the loader and starts the hero animation
   function finish() {
     document.body.classList.remove('loading');
     loader.remove();
   }
 
-  // Only play once per visit (and skip for people who prefer less motion)
   let seen = false;
   try {
     seen = sessionStorage.getItem('introSeen') === '1';
@@ -116,7 +112,6 @@ if (linesEl && labelEl) run();
   }
 
   async function intro() {
-    // 1. Count 0% → 100% in random jumps, like a real loader
     let p = 0;
     await sleep(1500);
     while (p < 100) {
@@ -126,20 +121,16 @@ if (linesEl && labelEl) run();
     }
     await sleep(300);
 
-    // 2. Switch to ACCESS GRANTED
     loader.classList.add('granted');
     word.textContent = 'WELCOME';
     await sleep(700);
 
-    // 3. Stretch the pill wide
     loader.classList.add('expand');
     await sleep(650);
 
-    // 4. Fill the whole screen
     loader.classList.add('fill');
     await sleep(600);
 
-    // 5. Fade out and reveal the site
     document.body.classList.remove('loading');
     loader.classList.add('done');
     try {
@@ -155,24 +146,77 @@ if (linesEl && labelEl) run();
 
   intro();
 })();
-// ---------- About: words sharpen as you scroll ----------
+
+(function () {
+  const header = document.getElementById('site-header');
+  const hero = document.querySelector('.hero');
+  if (!header || !hero) return;
+
+  function updateHeader() {
+    header.classList.toggle('is-solid', window.scrollY > 40);
+  }
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  window.addEventListener('resize', updateHeader);
+  updateHeader();
+
+  const links = Array.from(document.querySelectorAll('.site-nav a'));
+  const pairs = links
+    .map((a) => ({ link: a, section: document.querySelector(a.getAttribute('href')) }))
+    .filter((p) => p.section && p.section !== document.body);
+
+  function updateActive() {
+    let current = links[0];
+    if (window.scrollY > 40) {
+      const line = window.innerHeight * 0.4;
+      pairs.forEach((p) => {
+        if (p.section.getBoundingClientRect().top <= line) current = p.link;
+      });
+    }
+    links.forEach((a) => a.classList.toggle('is-active', a === current));
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive);
+  updateActive();
+})();
+
+(function () {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  const root = document.documentElement;
+
+  function label() {
+    const dark = root.dataset.theme === 'dark';
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  label();
+
+  btn.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    label();
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {}
+  });
+})();
+
 (function () {
   const textEl = document.getElementById('about-text');
   if (!textEl) return;
 
-  // Wrap every word in its own <span class="w">
   const words = textEl.textContent.trim().split(/\s+/);
   textEl.innerHTML = words.map((word) => `<span class="w">${word}</span>`).join(' ');
   const spans = Array.from(textEl.querySelectorAll('.w'));
 
-  // People who prefer less motion just see the full text
   if (reduceMotion) {
     spans.forEach((s) => s.classList.add('on'));
     return;
   }
 
-  // A word lights up once it passes 75% of the way up the screen
-  // (and fades back if you scroll up again)
   function update() {
     const line = window.innerHeight * 0.75;
     spans.forEach((s) => {
@@ -193,16 +237,33 @@ if (linesEl && labelEl) run();
   window.addEventListener('resize', update);
   update();
 })();
+
 (function () {
   const canvas = document.getElementById('bg-stars');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const colors = ['95, 212, 196', '120, 160, 255', '232, 236, 233']; // teal, blue, white
+  const palettes = {
+    dark:  ['95, 212, 196', '120, 160, 255', '232, 236, 233'],
+    light: ['13, 143, 128', '70, 110, 230', '120, 110, 210'],
+  };
+  const isDark = () => document.documentElement.dataset.theme === 'dark';
   let dots = [];
   let w = 0;
   let h = 0;
+
+  function makeDot() {
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.3 + 0.4,
+      vx: (Math.random() - 0.5) * 0.12,
+      vy: -(Math.random() * 0.18 + 0.04),
+      a: Math.random() * 0.5 + 0.2,
+      tw: Math.random() * Math.PI * 2,
+      c: Math.floor(Math.random() * 3),
+    };
+  }
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -216,24 +277,11 @@ if (linesEl && labelEl) run();
     dots = Array.from({ length: count }, makeDot);
   }
 
-  function makeDot() {
-    return {
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 1.3 + 0.4,              // size
-      vx: (Math.random() - 0.5) * 0.12,          // slow sideways drift
-      vy: -(Math.random() * 0.18 + 0.04),        // slow upward drift
-      a: Math.random() * 0.5 + 0.2,              // brightness
-      tw: Math.random() * Math.PI * 2,           // twinkle phase
-      c: colors[Math.floor(Math.random() * colors.length)],
-    };
-  }
-
   function draw() {
     ctx.clearRect(0, 0, w, h);
 
     for (const d of dots) {
-      if (!calm) {
+      if (!reduceMotion) {
         d.x += d.vx;
         d.y += d.vy;
         d.tw += 0.02;
@@ -246,20 +294,24 @@ if (linesEl && labelEl) run();
       const alpha = d.a * (0.65 + 0.35 * Math.sin(d.tw));
       ctx.beginPath();
       ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${d.c}, ${alpha})`;
+      const color = (isDark() ? palettes.dark : palettes.light)[d.c];
+      ctx.fillStyle = `rgba(${color}, ${alpha})`;
       ctx.fill();
     }
 
-    if (!calm) requestAnimationFrame(draw);
+    if (!reduceMotion) requestAnimationFrame(draw);
   }
 
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => {
+    resize();
+    if (reduceMotion) draw();
+  });
   resize();
   draw();
 })();
+
 (function () {
   const layer = document.querySelector('.bg-fx');
-  
   if (!layer || !window.matchMedia('(hover: hover)').matches) return;
 
   const glow = document.createElement('div');
@@ -272,7 +324,7 @@ if (linesEl && labelEl) run();
     marginLeft: '-320px',
     marginTop: '-320px',
     borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, rgba(160, 190, 255, 0.04) 30%, transparent 65%)',
+    background: 'var(--cursor-glow)',
     opacity: '0',
     transition: 'opacity 0.6s ease',
     willChange: 'transform',
@@ -280,7 +332,6 @@ if (linesEl && labelEl) run();
   });
   layer.appendChild(glow);
 
-  const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let x = window.innerWidth / 2;
   let y = window.innerHeight / 2;
   let tx = x;
@@ -296,12 +347,92 @@ if (linesEl && labelEl) run();
     glow.style.opacity = '0';
   });
 
-  
   function follow() {
-    x += (tx - x) * (smooth ? 0.6 : 1);
-    y += (ty - y) * (smooth ? 0.6 : 1);
+    x += (tx - x) * (reduceMotion ? 1 : 0.6);
+    y += (ty - y) * (reduceMotion ? 1 : 0.6);
     glow.style.transform = `translate(${x}px, ${y}px)`;
     requestAnimationFrame(follow);
   }
   follow();
+})();
+
+(function () {
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('cf-status');
+  if (!form || !status) return;
+
+  const button = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.className = 'ft-status';
+    status.textContent = 'Sending…';
+    button.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        form.reset();
+        status.classList.add('ok');
+        status.textContent = 'Message sent. I\'ll get back to you soon.';
+      } else {
+        throw new Error('Request failed');
+      }
+    } catch (err) {
+      status.classList.add('bad');
+      status.textContent = 'That didn\'t send. Email me at harshvardhan.kamble@outlook.com instead.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
+
+(function () {
+  const items = document.querySelectorAll('.jr-item');
+  if (!items.length) return;
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    items.forEach((el) => el.classList.add('in'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -12% 0px' });
+
+  items.forEach((el) => observer.observe(el));
+})();
+
+(function () {
+  const menu = document.querySelector('.cta-resume');
+  if (!menu) return;
+
+  document.addEventListener('click', (e) => {
+    if (menu.open && !menu.contains(e.target)) menu.open = false;
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') menu.open = false;
+  });
+})();
+
+(function () {
+  const btn = document.getElementById('to-top');
+  if (!btn) return;
+
+  function update() {
+    btn.classList.toggle('show', window.scrollY > window.innerHeight * 0.8);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 })();
