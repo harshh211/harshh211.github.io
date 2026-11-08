@@ -193,3 +193,115 @@ if (linesEl && labelEl) run();
   window.addEventListener('resize', update);
   update();
 })();
+(function () {
+  const canvas = document.getElementById('bg-stars');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const colors = ['95, 212, 196', '120, 160, 255', '232, 236, 233']; // teal, blue, white
+  let dots = [];
+  let w = 0;
+  let h = 0;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.min(110, Math.round((w * h) / 14000));
+    dots = Array.from({ length: count }, makeDot);
+  }
+
+  function makeDot() {
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.3 + 0.4,              // size
+      vx: (Math.random() - 0.5) * 0.12,          // slow sideways drift
+      vy: -(Math.random() * 0.18 + 0.04),        // slow upward drift
+      a: Math.random() * 0.5 + 0.2,              // brightness
+      tw: Math.random() * Math.PI * 2,           // twinkle phase
+      c: colors[Math.floor(Math.random() * colors.length)],
+    };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (const d of dots) {
+      if (!calm) {
+        d.x += d.vx;
+        d.y += d.vy;
+        d.tw += 0.02;
+
+        if (d.y < -5) { d.y = h + 5; d.x = Math.random() * w; }
+        if (d.x < -5) d.x = w + 5;
+        if (d.x > w + 5) d.x = -5;
+      }
+
+      const alpha = d.a * (0.65 + 0.35 * Math.sin(d.tw));
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${d.c}, ${alpha})`;
+      ctx.fill();
+    }
+
+    if (!calm) requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+(function () {
+  const layer = document.querySelector('.bg-fx');
+  
+  if (!layer || !window.matchMedia('(hover: hover)').matches) return;
+
+  const glow = document.createElement('div');
+  Object.assign(glow.style, {
+    position: 'absolute',
+    left: '0',
+    top: '0',
+    width: '640px',
+    height: '640px',
+    marginLeft: '-320px',
+    marginTop: '-320px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, rgba(160, 190, 255, 0.04) 30%, transparent 65%)',
+    opacity: '0',
+    transition: 'opacity 0.6s ease',
+    willChange: 'transform',
+    pointerEvents: 'none',
+  });
+  layer.appendChild(glow);
+
+  const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let x = window.innerWidth / 2;
+  let y = window.innerHeight / 2;
+  let tx = x;
+  let ty = y;
+
+  window.addEventListener('mousemove', (e) => {
+    tx = e.clientX;
+    ty = e.clientY;
+    glow.style.opacity = '1';
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => {
+    glow.style.opacity = '0';
+  });
+
+  
+  function follow() {
+    x += (tx - x) * (smooth ? 0.6 : 1);
+    y += (ty - y) * (smooth ? 0.6 : 1);
+    glow.style.transform = `translate(${x}px, ${y}px)`;
+    requestAnimationFrame(follow);
+  }
+  follow();
+})();

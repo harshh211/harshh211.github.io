@@ -7,10 +7,18 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Pinyon+Script&display=swap" rel="stylesheet">  <link rel="preload" href="fonts/MonaspaceNeon.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="loading">
+  <div class="bg-fx" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-glow g1"></div>
+    <div class="bg-glow g2"></div>
+    <div class="bg-glow g3"></div>
+    <canvas id="bg-stars"></canvas>
+  </div>
+
 
   <!-- ---------- Intro loader ---------- -->
   <div class="loader" id="loader" aria-hidden="true">
@@ -44,7 +52,6 @@
     <section class="hero">
       <h1 class="visually-hidden">Harshvardhan Kamble, Security Analyst and Engineer</h1>
 
-      <!-- Giant faded name behind the photo -->
       <div class="hero-bg-name" aria-hidden="true">
         <span>HARSHVARDHAN</span>
         <span>KAMBLE</span>
@@ -52,7 +59,6 @@
 
       <img class="hero-photo" src="harsh.png" alt="Portrait of Harshvardhan Kamble">
 
-      <!-- Left side: animated case card + tagline -->
       <div class="hero-left">
         <a href="#projects" class="work-card" aria-label="See selected work">
           <div class="terminal-dots">
@@ -64,123 +70,19 @@
         <p class="tagline">I find the threats.<br>Then I build the fixes.</p>
       </div>
 
-      <!-- Right side: signature + short intro -->
       <div class="hero-right">
-        <p class="signature">Harshvardhan</p>
+        <p class="signature">Harsh<br><span>K.</span></p>
         <p class="intro">Security analyst &amp; engineer<br>SOC · Detection · Cloud security<br>Georgia State '27</p>
 
-        <details class="resume-menu">
-          <summary class="resume-btn">Resume ↓</summary>
-                    <div class="resume-options">
-            <a href="https://drive.google.com/file/d/15aGH3PGHB4_jQkebGg7uEZaupMtN2iIS/view?usp=sharing" target="_blank" rel="noopener">Security Analyst</a>
-            <a href="https://drive.google.com/file/d/1caJjezlvki3sUbWROymhpPGqnNfMhkcR/view?usp=sharing" target="_blank" rel="noopener">Security Engineer</a>
-          </div>
-        </details>
+        
       </div>
 
       <p class="hero-footer">Security Analyst &amp; Engineer /<br>Atlanta, GA</p>
     </section>
 
-        <!-- ---------- About ---------- -->
-    <section class="about-me" id="about">
-      <div class="about-me-inner">
-
-        <!-- Left: label + big statement (stays in place while scrolling) -->
-        <div class="about-me-left">
-          <p class="about-me-label">About me</p>
-          <h2 class="about-me-title">I break things<br>so they <span>don't</span><br>break.</h2>
-        </div>
-
-        <!-- Right: paragraph that sharpens as you scroll + quick facts -->
-        <div class="about-me-right">
-          <p class="about-me-text" id="about-text">
-            I'm a Computer Science student at Georgia State University who learns security by
-            playing both sides. In my home labs I launch real attacks like Kerberoasting and
-            brute-force logins, catch them in Splunk, map them to MITRE ATT&amp;CK, then harden
-            whatever let them through. I'm looking for security analyst and security engineer
-            roles where I can do the same on real systems: investigating alerts, writing
-            detections, and fixing the root cause.
-          </p>
-
-          <dl class="about-me-facts">
-            <div>
-              <dt>Based in</dt>
-              <dd>Atlanta, GA</dd>
-            </div>
-            <div>
-              <dt>Studying</dt>
-              <dd>B.S. Computer Science, Georgia State · May 2027</dd>
-            </div>
-            <div>
-              <dt>Certs</dt>
-              <dd>CompTIA Security+ · TryHackMe SOC Level 1</dd>
-            </div>
-            <div>
-              <dt>Focus</dt>
-              <dd>SOC &amp; detection · Cloud security · Active Directory</dd>
-            </div>
-          </dl>
-        </div>
-
-      </div>
-    </section>
-      <!-- ---------- What I Do ---------- -->
-    <section class="wid" id="what-i-do">
-      <div class="wid-inner">
-
-        <!-- Left: big heading -->
-        <h2 class="wid-title">What<br><span>I do</span></h2>
-
-        <!-- Right: two expandable boxes -->
-        <div class="wid-boxes">
-
-          <details class="wid-box" open>
-            <summary>
-              <span class="wid-box-head">
-                <span class="wid-box-title">Analyst</span>
-                <span class="wid-box-sub">Detect &amp; investigate</span>
-              </span>
-              <span class="wid-toggle" aria-hidden="true"></span>
-            </summary>
-            <p class="wid-box-text">
-              I watch the logs so nothing slips through. I build detections in Splunk,
-              map alerts to MITRE ATT&amp;CK, and triage what fires: separating real
-              attacks from noise and documenting exactly what happened.
-            </p>
-            <p class="wid-tags-label">Skillset &amp; tools</p>
-            <ul class="wid-tags">
-              <li>Splunk</li><li>SPL</li><li>MITRE ATT&amp;CK</li><li>Sysmon</li>
-              <li>Wireshark</li><li>Incident triage</li><li>Log analysis</li>
-            </ul>
-          </details>
-
-          <details class="wid-box">
-            <summary>
-              <span class="wid-box-head">
-                <span class="wid-box-title">Engineer</span>
-                <span class="wid-box-sub">Harden &amp; automate</span>
-              </span>
-              <span class="wid-toggle" aria-hidden="true"></span>
-            </summary>
-            <p class="wid-box-text">
-              I fix the root cause, then make sure it stays fixed. I harden Active
-              Directory, lock down AWS IAM, and add security checks to CI/CD so
-              misconfigurations never ship.
-            </p>
-            <p class="wid-tags-label">Skillset &amp; tools</p>
-            <ul class="wid-tags">
-              <li>AWS IAM</li><li>Azure</li><li>Active Directory</li><li>Terraform</li>
-              <li>Checkov</li><li>Python</li><li>Docker</li><li>CI/CD</li>
-            </ul>
-          </details>
-
-        </div>
-      </div>
-    </section>
-      <!-- ---------- Selected Work ---------- -->
+    <!-- ---------- 01 / Selected Work ---------- -->
     <section class="pj" id="projects">
 
-      <!-- Shared arrowheads + dot grid for the cover art -->
       <svg width="0" height="0" style="position: absolute" aria-hidden="true">
         <defs>
           <pattern id="pj-dots" width="16" height="16" patternUnits="userSpaceOnUse">
@@ -293,7 +195,7 @@
           </div>
         </a>
 
-        <!-- 04 · DevSecOps Terraform Pipeline -->
+        <!-- 04 · Terraform Security Pipeline -->
         <a class="pj-card" href="https://github.com/harshh211/terraform-security-pipeline" target="_blank" rel="noopener">
           <svg class="pj-art" viewBox="0 0 320 220" role="img" aria-label="CI pipeline where Checkov blocks a deploy">
             <rect width="320" height="220" fill="#0d1726"></rect>
@@ -351,35 +253,206 @@
 
       </div>
     </section>
-      <!-- ---------- Contact ---------- -->
-    <section class="ct" id="contact">
-      <p class="ct-label">Contact</p>
 
-            <h2 class="ct-title">I think like an attacker.<br><span>I build like a defender.</span></h2>
+    <!-- ---------- 02 / Behind the work ---------- -->
+    <section class="bw" id="about">
+      <p class="sec-label">02 / Behind the work</p>
 
-      <p class="ct-text">
-        Open to security analyst and security engineer internships.
-        The fastest way to reach me is email.
-      </p>
+      <div class="bw-stage">
+        <div class="bw-float f1" aria-hidden="true">
+          <div class="mini-dots"><span></span><span></span><span></span></div>
+          <p><b class="red">$</b> secretsdump.py lab.local</p>
+          <p><b class="red">[+]</b> NTLM hashes dumped</p>
+          <p><b class="red">→</b> pass-the-hash · SYSTEM</p>
+        </div>
 
-      <a class="ct-email" href="mailto:harshvardhan.kamble@outlook.com">
-        harshvardhan.kamble@outlook.com <span aria-hidden="true">↗</span>
-      </a>
+        <div class="bw-float f2" aria-hidden="true">
+          <p class="mini-k">EventCode 4625</p>
+          <div class="mini-bars">
+            <i style="height: 12%"></i><i style="height: 18%"></i><i style="height: 10%"></i>
+            <i style="height: 15%"></i><i class="hot" style="height: 70%"></i><i class="hot" style="height: 95%"></i>
+            <i class="hot" style="height: 82%"></i><i style="height: 14%"></i><i style="height: 9%"></i>
+          </div>
+          <p class="mini-alert">T1110 · alert fired</p>
+        </div>
 
-      <ul class="ct-links">
-        <li><a href="https://www.linkedin.com/in/harsh-kam/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
-        <li><a href="https://github.com/harshh211" target="_blank" rel="noopener">GitHub ↗</a></li>
-        <li><a href="https://drive.google.com/file/d/15aGH3PGHB4_jQkebGg7uEZaupMtN2iIS/view?usp=sharing" target="_blank" rel="noopener">Analyst Resume ↗</a></li>
-        <li><a href="https://drive.google.com/file/d/1caJjezlvki3sUbWROymhpPGqnNfMhkcR/view?usp=sharing" target="_blank" rel="noopener">Engineer Resume ↗</a></li>
-      </ul>
+        <div class="bw-float f3" aria-hidden="true">
+          <p class="mini-k">harden_dc.ps1</p>
+          <p><b class="ok">✓</b> LDAP signing enforced</p>
+          <p><b class="ok">✓</b> Protected Users</p>
+          <p><b class="ok">✓</b> Defender + firewall on</p>
+        </div>
 
-      <footer class="ct-footer">
-        <span>© 2026 Harshvardhan Kamble</span>
-        <span>Atlanta, GA</span>
-        <a href="#">Back to top ↑</a>
-      </footer>
+        <h2 class="bw-title">I break things<br>so they <em>don't break.</em></h2>
+      </div>
+
+      <div class="bw-bottom">
+        <p class="bw-sign">Harshvardhan</p>
+        <p class="bw-text" id="about-text">
+          I'm a Computer Science student at Georgia State University who learns security by
+          playing both sides. In my home labs I launch real attacks like Kerberoasting and
+          brute-force logins, catch them in Splunk, map them to MITRE ATT&amp;CK, then harden
+          whatever let them through.
+        </p>
+        <dl class="bw-facts">
+          <div><dt>Based in</dt><dd>Atlanta, GA</dd></div>
+          <div><dt>Studying</dt><dd>B.S. Computer Science · May 2027</dd></div>
+          <div><dt>Certs</dt><dd>Security+ · TryHackMe SOC Level 1</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ---------- 03 / My practice ---------- -->
+    <section class="pr" id="practice">
+      <div class="pr-head">
+        <p class="sec-label">03 / My practice</p>
+        <p class="pr-count"><span id="pr-num">01</span> / 04</p>
+      </div>
+      <h2 class="pr-title">Many tools.<br><em>One mindset.</em></h2>
+
+      <div class="pr-tabs" role="tablist" aria-label="Practice areas">
+        <button class="pr-tab" role="tab" id="tab-1" aria-controls="pr-1" aria-selected="true">Detection engineering</button>
+        <button class="pr-tab" role="tab" id="tab-2" aria-controls="pr-2" aria-selected="false" tabindex="-1">Incident triage</button>
+        <button class="pr-tab" role="tab" id="tab-3" aria-controls="pr-3" aria-selected="false" tabindex="-1">Cloud security</button>
+        <button class="pr-tab" role="tab" id="tab-4" aria-controls="pr-4" aria-selected="false" tabindex="-1">Active Directory</button>
+      </div>
+
+      <article class="pr-panel" id="pr-1" role="tabpanel" aria-labelledby="tab-1">
+        <pre class="pr-code"><span class="c-k"># 01-rdp-bruteforce-detection.spl</span>
+index=main EventCode=<span class="c-s">4625</span> Logon_Type=<span class="c-s">3</span>
+| bucket _time span=<span class="c-s">5m</span>
+| stats count by _time, Account_Name,
+    Source_Network_Address
+| where count &gt;= <span class="c-s">5</span>
+
+<span class="c-bad">⚠ 4 windows matched · T1110 Brute Force</span></pre>
+        <div class="pr-info">
+          <h3>Detection engineering</h3>
+          <p>I write detections that catch behavior, not single events. Instead of alerting on one failed login, I look for patterns: five failures from one source in five minutes, encoded PowerShell, recon commands in a burst.</p>
+          <ul class="pr-tags"><li>Splunk</li><li>SPL</li><li>Sysmon</li><li>MITRE ATT&amp;CK</li></ul>
+          <a class="pr-link" href="https://github.com/harshh211/Home-SOC-Lab" target="_blank" rel="noopener">Explore the project ↗</a>
+        </div>
+      </article>
+
+      <article class="pr-panel" id="pr-2" role="tabpanel" aria-labelledby="tab-2" hidden>
+        <pre class="pr-code"><span class="c-k"># 04-encoded-powershell-detection.spl</span>
+source=<span class="c-s">"...PowerShell/Operational"</span>
+| search Message=<span class="c-s">"*EncodedCommand*"</span>
+    OR Message=<span class="c-s">"*-enc *"</span>
+| eval DecodedPayload=substr(Message, 1, 500)
+| table _time, DecodedPayload
+
+<span class="c-ok">✓ payload decoded · T1027 · T1059.001</span></pre>
+        <div class="pr-info">
+          <h3>Incident triage</h3>
+          <p>When an alert fires, I work out what actually happened. I pivot through the logs, decode what the attacker tried to hide, tie it to a MITRE technique, and write up the timeline so the next analyst doesn't start from zero.</p>
+          <ul class="pr-tags"><li>Alert triage</li><li>Log analysis</li><li>Wireshark</li><li>Script Block Logging</li></ul>
+          <a class="pr-link" href="https://github.com/harshh211/Home-SOC-Lab" target="_blank" rel="noopener">Explore the project ↗</a>
+        </div>
+      </article>
+
+      <article class="pr-panel" id="pr-3" role="tabpanel" aria-labelledby="tab-3" hidden>
+        <pre class="pr-code"><span class="c-k"># tests/fixtures/fail/main.tf</span>
+resource <span class="c-s">"aws_db_instance"</span> <span class="c-s">"bad"</span> {
+  identifier = <span class="c-s">"bad-db"</span>
+  password   = <span class="c-s">"SuperSecret123!"</span>
+}
+
+$ checkov -d . --external-checks-dir custom_checks
+<span class="c-bad">✕ CKV_CUSTOM_1  hardcoded sensitive value</span>
+<span class="c-bad">✕ CKV_CUSTOM_2  missing Owner / Environment tags</span></pre>
+        <div class="pr-info">
+          <h3>Cloud security</h3>
+          <p>I catch cloud misconfigurations before they ship. I write custom Checkov policies, run them in CI so risky Terraform can't merge, and map AWS IAM roles to find privilege escalation paths.</p>
+          <ul class="pr-tags"><li>AWS IAM</li><li>Terraform</li><li>Checkov</li><li>GitHub Actions</li></ul>
+          <a class="pr-link" href="https://github.com/harshh211/terraform-security-pipeline" target="_blank" rel="noopener">Explore the project ↗</a>
+        </div>
+      </article>
+
+      <article class="pr-panel" id="pr-4" role="tabpanel" aria-labelledby="tab-4" hidden>
+        <pre class="pr-code"><span class="c-k"># harden_dc.ps1</span>
+Set-MpPreference -DisableRealtimeMonitoring <span class="c-s">$false</span>
+Set-ItemProperty -Path <span class="c-s">"HKLM:\...\NTDS\Parameters"</span> `
+  -Name <span class="c-s">"LDAPServerIntegrity"</span> -Value <span class="c-s">2</span>
+Add-ADGroupMember -Identity <span class="c-s">"Protected Users"</span> `
+  -Members <span class="c-s">"madmin"</span>
+Set-ADDefaultDomainPasswordPolicy -MinPasswordLength <span class="c-s">14</span>
+
+<span class="c-ok">✓ Hardening complete!</span></pre>
+        <div class="pr-info">
+          <h3>Active Directory security</h3>
+          <p>I've taken a domain from enumeration to SYSTEM with Impacket, then closed every door I used: LDAP signing, Protected Users, a stronger password policy, and Defender back on.</p>
+          <ul class="pr-tags"><li>Active Directory</li><li>Azure</li><li>Impacket</li><li>PowerShell</li></ul>
+          <a class="pr-link" href="https://github.com/harshh211/AD-Attack-Defense-Lab" target="_blank" rel="noopener">Explore the project ↗</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- ---------- 04 / Outside the brief ---------- -->
+    <section class="ob" id="notes">
+      <p class="sec-label">04 / Outside the brief</p>
+      <h2 class="ob-title">Always learning.<br><em>Always breaking.</em></h2>
+
+      <div class="ob-cards">
+        <article class="ob-card c1">
+          <div class="ob-art" aria-hidden="true">
+            <span class="ob-badge">Security<b>+</b></span>
+            <span class="ob-sub">CompTIA</span>
+          </div>
+          <p class="ob-meta">Certification / Field notes 01</p>
+          <h3>Learning the fundamentals the right way</h3>
+        </article>
+
+        <article class="ob-card c2">
+          <div class="ob-art" aria-hidden="true">
+            <span class="ob-badge">SOC<b>L1</b></span>
+            <span class="ob-sub">TryHackMe</span>
+          </div>
+          <p class="ob-meta">Hands-on / Field notes 02</p>
+          <h3>Learning to think like an analyst</h3>
+        </article>
+      </div>
+
+      <p class="ob-line">Curiosity is the best exploit.</p>
+    </section>
+
+    <!-- ---------- Closing statement ---------- -->
+    <section class="cs">
+      <h2 class="cs-title">I think like an attacker.<br><em>I build like a defender.</em></h2>
     </section>
   </main>
+
+  <!-- ---------- Footer / Contact ---------- -->
+  <footer class="ft" id="contact">
+    <div class="ft-top">
+      <div class="ft-left">
+        <p class="sec-label">Your next security hire</p>
+        <h2 class="ft-title">Let's find it<br><em>before they do.</em></h2>
+        <a class="ft-btn" href="mailto:harshvardhan.kamble@outlook.com">Start a conversation <span aria-hidden="true">→</span></a>
+        <p class="ft-email">harshvardhan.kamble@outlook.com</p>
+        <ul class="ft-links">
+          <li><a href="https://www.linkedin.com/in/harsh-kam/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+          <li><a href="https://github.com/harshh211" target="_blank" rel="noopener">GitHub ↗</a></li>
+          <li><a href="https://drive.google.com/file/d/15aGH3PGHB4_jQkebGg7uEZaupMtN2iIS/view?usp=sharing" target="_blank" rel="noopener">Analyst resume ↗</a></li>
+          <li><a href="https://drive.google.com/file/d/1caJjezlvki3sUbWROymhpPGqnNfMhkcR/view?usp=sharing" target="_blank" rel="noopener">Engineer resume ↗</a></li>
+        </ul>
+      </div>
+      <img class="ft-photo" src="harsh.png" alt="" aria-hidden="true">
+    </div>
+
+    <div class="ft-bottom">
+      <a href="#" class="ft-mono">HK<sup>°</sup></a>
+      <nav class="ft-nav" aria-label="Footer">
+        <a href="#">Home</a>
+        <a href="#projects">Selected work</a>
+        <a href="#about">About</a>
+        <a href="#practice">Practice</a>
+        <a href="#notes">Field notes</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="ft-copy">© 2026 Harshvardhan Kamble · Atlanta, GA</p>
+    </div>
+  </footer>
 
   <script src="script.js" defer></script>
 </body>
